@@ -11,13 +11,7 @@ import { Pagination, Slide } from './src';
 export default class Gallery extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: [], index: 0 };
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ data: this.props.data });
-    }, 400);
+    this.state = { index: 0 };
   }
 
   onScrollEnd(e) {
@@ -44,14 +38,18 @@ export default class Gallery extends Component {
 
   render() {
     const backgroundColor = this.props.backgroundColor || '#000';
+    const data = this.props.data || [];
     return (
-      <View style={{ ...styles.container, backgroundColor }}>
-        {!this.state.data.length &&
+      <View
+        orientation={this.state.orientation}
+        style={{ ...styles.container, backgroundColor }}
+      >
+        {!data.length &&
           <ActivityIndicator style={styles.loader} />}
 
         <FlatList
           style={styles.swiper}
-          data={this.state.data}
+          data={data}
           horizontal
           initialNumToRender={4}
           ref={ref => this.swiper = ref}
@@ -63,7 +61,7 @@ export default class Gallery extends Component {
         />
         <Pagination
           index={this.state.index}
-          data={this.state.data}
+          data={data}
           goTo={this.goTo.bind(this)}
           backgroundColor={backgroundColor}
         />

@@ -7,6 +7,15 @@ import BetterList from '../BetterList';
 export class Pagination extends Component {
   constructor(props) {
     super(props);
+    this.setContentInset()
+  }
+
+  componentDidUpdate() {
+    this.list.pagination.scrollTo({ x: ((this.props.index * 64) - this.contentInset) });
+    this.setContentInset();
+  }
+
+  setContentInset() {
     this.contentInset = (Dimensions.get('window').width / 2) - 32;
     this.insetOffSetParams = Platform.select({
       ios: {
@@ -16,9 +25,6 @@ export class Pagination extends Component {
       },
       android: {}
     });
-  }
-  componentDidUpdate() {
-    this.list.pagination.scrollTo({ x: ((this.props.index * 64) - this.contentInset) });
   }
 
   navigate(index) {
@@ -41,7 +47,13 @@ export class Pagination extends Component {
             index={index}
           />
         }
-        style={{ ...s.container, backgroundColor: this.props.backgroundColor }}
+        style={[
+          s.container,
+          {
+            backgroundColor: this.props.backgroundColor,
+            width: Dimensions.get('window').width,
+          }
+        ]}
         overScrollMode="never"
         alwaysBounceHorizontal={false}
         {...this.insetOffSetParams}
@@ -55,7 +67,6 @@ const s = {
     position: 'absolute',
     bottom: 0,
     height: 64,
-    width: Dimensions.get('window').width,
   },
   subContainer: {
     flexDirection: 'row',

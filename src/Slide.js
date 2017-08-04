@@ -9,9 +9,8 @@ const styles = {
     justifyContent: 'center',
   },
   scrollViewC: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - 128,
     alignItems: 'center',
+    top: -32,
     justifyContent: 'center',
   },
   loader: {
@@ -24,7 +23,12 @@ const styles = {
 export class Slide extends Component {
   render() {
     return (
-      <View style={styles.slideC}>
+      <View
+        style={[
+          styles.slideC,
+          { width: Dimensions.get('window').width, height: Dimensions.get('window').height }
+        ]}
+      >
         <ActivityIndicator style={styles.loader} />
         <PhotoView
           source={this.props.item.image}
@@ -32,7 +36,13 @@ export class Slide extends Component {
           zoomScale={1}
           androidScaleType="center"
           resizeMode="contain"
-          style={styles.scrollViewC}
+          style={[
+            styles.scrollViewC,
+            {
+              width: Dimensions.get('window').width,
+              height: Dimensions.get('window').height - 128,
+            }
+          ]}
         />
       </View>
     );

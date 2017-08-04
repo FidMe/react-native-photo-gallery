@@ -7,8 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "react-native"
+    "react-native",
+    "gallery",
+    "photo",
+    "ios",
+    "android",
+    "zoom",
+    "pagination"
   ],
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/Michaelvilleneuve/react-native-photo-gallery"
+  },
   "author": "Michaël Villeneuve",
   "license": "MIT",
   "dependencies": {

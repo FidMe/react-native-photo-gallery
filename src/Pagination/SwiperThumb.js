@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
-import { data } from '../../datas';
 
 class SwiperThumb extends Component {
   goToSlide() {
@@ -15,7 +14,7 @@ class SwiperThumb extends Component {
       >
         <Image
           style={{ ...s.thumb, opacity: this.props.active ? 1 : 0.6 }}
-          source={data[this.props.index].image}
+          source={this.props.data[this.props.index].image}
         />
       </TouchableOpacity>
     );

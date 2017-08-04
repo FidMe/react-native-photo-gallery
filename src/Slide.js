@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 
 const styles = {
   slideC: {
-    backgroundColor: '#F1F1F1',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

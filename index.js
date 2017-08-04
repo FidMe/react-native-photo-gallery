@@ -2,7 +2,6 @@ import {
   ActivityIndicator,
   Dimensions,
   FlatList,
-  StyleSheet,
   View,
 } from 'react-native';
 import React, { Component } from 'react';
@@ -44,8 +43,9 @@ export default class Gallery extends Component {
   }
 
   render() {
+    const backgroundColor = this.props.backgroundColor || '#000';
     return (
-      <View style={styles.container}>
+      <View style={{ ...styles.container, backgroundColor }}>
         {!this.state.data.length &&
           <ActivityIndicator style={styles.loader} />}
 
@@ -65,7 +65,7 @@ export default class Gallery extends Component {
           index={this.state.index}
           data={this.state.data}
           goTo={this.goTo.bind(this)}
-          backgroundColor={this.props.backgroundColor}
+          backgroundColor={backgroundColor}
         />
       </View>
     );
@@ -75,18 +75,17 @@ export default class Gallery extends Component {
 
 Gallery.propTypes = {
   backgroundColor: PropTypes.string,
-  data: PropTypes.arrayOf((propValue, key, componentName, location, propFullName) => {
+  data: PropTypes.arrayOf((propValue, key) => {
     if (!propValue[key].id || !propValue[key].image) {
       return new Error(
         'Data prop is invalid. It must be an object containing "id" and "data" keys.'
       );
     }
   })
-}
+};
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
-    backgroundColor: this.props.backgroundColor || '#000',
     flex: 1,
   },
   loader: {
@@ -97,4 +96,4 @@ const styles = StyleSheet.create({
   swiper: {
     top: -32,
   }
-});
+};

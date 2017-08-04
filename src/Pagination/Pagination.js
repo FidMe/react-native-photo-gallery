@@ -35,12 +35,13 @@ export class Pagination extends Component {
           <SwiperThumb
             {...item}
             key={index}
+            data={this.props.data}
             active={index == this.props.index}
             navigate={this.navigate.bind(this, index)}
             index={index}
           />
         }
-        style={s.container}
+        style={{ ...s.container, backgroundColor: this.props.backgroundColor }}
         overScrollMode="never"
         alwaysBounceHorizontal={false}
         {...this.insetOffSetParams}
@@ -55,7 +56,6 @@ const s = {
     bottom: 0,
     height: 64,
     width: Dimensions.get('window').width,
-    backgroundColor: this.props.backgroundColor || '#000',
   },
   subContainer: {
     flexDirection: 'row',

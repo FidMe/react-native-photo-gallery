@@ -1,0 +1,27 @@
+{
+  "name": "FidmeCatalog",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.44.3",
+    "react-native-photo-view": "^1.3.0",
+    "react-navigation": "^1.0.0-beta.11"
+  },
+  "devDependencies": {
+    "babel-jest": "20.0.3",
+    "babel-plugin-module-resolver": "^2.7.1",
+    "babel-plugin-require-all": "0.0.1",
+    "babel-preset-react-native": "2.1.0",
+    "eslint-config-rallycoding": "^3.2.0",
+    "jest": "20.0.4",
+    "react-test-renderer": "16.0.0-alpha.12"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

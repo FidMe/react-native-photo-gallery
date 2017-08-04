@@ -1,0 +1,18 @@
+{
+  "name": "react-native-photo-gallery",
+  "version": "0.1.0",
+  "description": "A simple gallery component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": "Michaël Villeneuve",
+  "license": "MIT",
+  "dependencies": {
+    "prop-types": "^15.5.10",
+    "react-native-photo-view": "^1.3.0"
+  }
+}

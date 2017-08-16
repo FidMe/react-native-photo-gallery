@@ -1,6 +1,6 @@
+import React, { Component } from 'react';
 import { ActivityIndicator, Dimensions, View } from 'react-native';
 import PhotoView from 'react-native-photo-view';
-import React, { Component } from 'react';
 
 const styles = {
   slideC: {
@@ -22,6 +22,11 @@ const styles = {
 
 export class Slide extends Component {
   render() {
+    const inside = {
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height - 128,
+    };
+
     return (
       <View
         style={[
@@ -38,12 +43,10 @@ export class Slide extends Component {
           resizeMode="contain"
           style={[
             styles.scrollViewC,
-            {
-              width: Dimensions.get('window').width,
-              height: Dimensions.get('window').height - 128,
-            }
+            inside
           ]}
         />
+        {this.props.item.overlay}
       </View>
     );
   }

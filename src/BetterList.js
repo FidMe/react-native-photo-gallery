@@ -23,6 +23,7 @@ export default class BetterList extends Component {
       <ListView
        {...this.props}
        ref={sc => this.pagination = sc}
+       initialListSize={this.props.initialPaginationSize}
        dataSource={this.state.dataSource}
       />
     );

@@ -51,7 +51,7 @@ export default class Gallery extends Component {
           style={styles.swiper}
           data={data}
           horizontal
-          initialNumToRender={4}
+          initialNumToRender={this.props.initialNumToRender||4}
           ref={ref => this.swiper = ref}
           pagingEnabled
           onMomentumScrollEnd={this.onScrollEnd.bind(this)}
@@ -62,6 +62,7 @@ export default class Gallery extends Component {
         <Pagination
           index={this.state.index}
           data={data}
+          initialPaginationSize={this.props.initialPaginationSize||10}
           goTo={this.goTo.bind(this)}
           backgroundColor={backgroundColor}
         />
@@ -76,7 +77,7 @@ Gallery.propTypes = {
   data: PropTypes.arrayOf((propValue, key) => {
     if (!propValue[key].id || !propValue[key].image) {
       return new Error(
-        'Data prop is invalid. It must be an object containing "id" and "data" keys.'
+        'Data prop is invalid. It must be an object containing "id" and "image" keys.'
       );
     }
   })

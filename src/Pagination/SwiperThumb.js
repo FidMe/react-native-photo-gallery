@@ -14,7 +14,7 @@ class SwiperThumb extends Component {
       >
         <Image
           style={{ ...s.thumb, opacity: this.props.active ? 1 : 0.6 }}
-          source={this.props.data[this.props.index].image}
+          source={this.props.data[this.props.index].thumb||this.props.data[this.props.index].image}
         />
       </TouchableOpacity>
     );

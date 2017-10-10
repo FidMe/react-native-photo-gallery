@@ -59,6 +59,6 @@ You can provide the following props.
 | Key             | Type            | Required   | Description |
 |-------------------|-----------------|--------------------------------------------------------------------------------------------|----|
 | `id` | `String`        | Yes | A unique identifier
-| `image`            | `Image source` | Yes | See `<Image source={}/>` on react native documentation. |
-| `thumb`            | `Image source` | No | Will be used as a thumbnail on pagination, will default to `image`if not provided |
+| `image`            | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | Yes | The same as the `source` prop on `<Image />`. |
+| `thumb`            | [`Image source`](https://facebook.github.io/react-native/docs/image.html#source) | No | Will be used as a thumbnail on pagination, will default to `image` if not provided |
 | `overlay`            | `Component` | No | A view that will be displayed above the image, for metas infos for example |

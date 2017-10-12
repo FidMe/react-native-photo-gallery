@@ -125,7 +125,7 @@ export default class Gallery extends Component {
     });
   };
 
-  handleCloseImage = () => {
+  closeImage = () => {
     if (!this.props.showGalleryList) {
       return;
     }
@@ -161,6 +161,7 @@ export default class Gallery extends Component {
     const showLoading = !data.length;
     
     const listContainerStyle = {
+      ...StyleSheet.absoluteFillObject,
       backgroundColor,
       position: 'absolute',
       top: this.scale.interpolate({
@@ -199,7 +200,7 @@ export default class Gallery extends Component {
         <Animated.View style={listContainerStyle}>
           {showCloseButton && showGalleryList && (
             <View style={styles.closeButtonContainer}>
-              <TouchableWithoutFeedback onPress={this.handleCloseImage}>
+              <TouchableWithoutFeedback onPress={this.closeImage}>
                 <Image
                   source={require('./src/assets/close.png')}
                   style={styles.closeImage}

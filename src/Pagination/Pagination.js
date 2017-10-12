@@ -1,5 +1,5 @@
-import { Dimensions, Platform } from 'react-native';
 import React, { Component } from 'react';
+import { Dimensions, Platform, Animated } from 'react-native';
 
 import SwiperThumb from './SwiperThumb';
 import BetterList from '../BetterList';
@@ -21,52 +21,58 @@ export class Pagination extends Component {
       ios: {
         contentInset: { left: this.contentInset, right: this.contentInset },
         contentOffset: { x: -this.contentInset },
-        contentContainerStyle: s.subContainer,
+        contentContainerStyle: styles.subContainer,
       },
-      android: {}
+      android: {},
     });
   }
 
   navigate(index) {
-    this.props.goTo(index);
+    this.props.goTo({ index });
   }
 
   render() {
+    const {
+      containerStyle,
+    } = this.props;
+
     return (
-      <BetterList
-        horizontal
-        ref={sc => this.list = sc}
-        data={this.props.data}
-        renderRow={(item, i, index) =>
-          <SwiperThumb
-            {...item}
-            key={index}
-            data={this.props.data}
-            active={index == this.props.index}
-            navigate={this.navigate.bind(this, index)}
-            index={index}
-          />
-        }
-        style={[
-          s.container,
-          {
-            backgroundColor: this.props.backgroundColor,
-            width: Dimensions.get('window').width,
+      <Animated.View style={[styles.container, containerStyle]}>
+        <BetterList
+          ref={ref => this.list = ref}
+          data={this.props.data}
+          horizontal={true}
+          renderRow={(item, i, index) =>
+            <SwiperThumb
+              {...item}
+              key={index}
+              data={this.props.data}
+              active={index == this.props.index}
+              navigate={this.navigate.bind(this, index)}
+              index={index}
+            />
           }
-        ]}
-        overScrollMode="never"
-        alwaysBounceHorizontal={false}
-        {...this.insetOffSetParams}
-      />
+          style={[
+            {
+              backgroundColor: this.props.backgroundColor,
+            },
+          ]}
+          overScrollMode="never"
+          alwaysBounceHorizontal={false}
+          removeClippedSubviews={false}
+          {...this.insetOffSetParams}
+        />
+      </Animated.View>
     );
   }
 }
 
-const s = {
+const styles = {
   container: {
     position: 'absolute',
     bottom: 0,
     height: 64,
+    flex: 1,
   },
   subContainer: {
     flexDirection: 'row',

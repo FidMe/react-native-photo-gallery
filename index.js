@@ -41,6 +41,7 @@ export default class Gallery extends Component {
     initialPaginationSize: 10,
     showGalleryList: false,
     showCloseButton: true,
+    onChangeFullscreenState: () => {},
   };
 
   static propTypes = {
@@ -58,6 +59,7 @@ export default class Gallery extends Component {
     initialPaginationSize: PropTypes.number,
     showGalleryList: PropTypes.bool,
     showCloseButton: PropTypes.bool,
+    onChangeFullscreenState: PropTypes.func,
   };
 
   onScrollEnd = (e) => {
@@ -105,6 +107,8 @@ export default class Gallery extends Component {
   };
 
   handleOnPressImage = (index, { nativeEvent }) => {
+    this.props.onChangeFullscreenState(true);
+
     this.goTo({
       index,
       animated: false,
@@ -129,6 +133,8 @@ export default class Gallery extends Component {
     if (!this.props.showGalleryList) {
       return;
     }
+
+    this.props.onChangeFullscreenState(false);
 
     Animated.timing(this.scale, {
       toValue: 0,

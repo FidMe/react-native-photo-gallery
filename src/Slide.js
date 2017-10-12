@@ -1,56 +1,46 @@
-import React, { Component } from 'react';
-import { ActivityIndicator, Dimensions, View } from 'react-native';
+import React, { PureComponent } from 'react';
+import { Dimensions, View, StyleSheet } from 'react-native';
 import PhotoView from 'react-native-photo-view';
 
-export class Slide extends Component {
+import Loading from './Loading';
+
+const { width, height } = Dimensions.get('window');
+
+export class Slide extends PureComponent {
   render() {
-    const inside = {
-      width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height - 128,
-    };
+    const {
+      showLoading,
+      item: {
+        image,
+        overlay,
+      },
+    } = this.props;
 
     return (
-      <View
-        style={[
-          styles.slideC,
-          { width: Dimensions.get('window').width, height: Dimensions.get('window').height }
-        ]}
-      >
-        <ActivityIndicator style={styles.loader} />
+      <View>
+        {showLoading && <Loading />}
 
         <PhotoView
-          source={this.props.item.image}
+          source={image}
           maximumZoomScale={3}
           zoomScale={1}
           androidScaleType="center"
           resizeMode="contain"
-          style={[
-            styles.scrollViewC,
-            inside
-          ]}
-          onTap={this.props.onPressOutside}
+          style={styles.photoViewContainer}
         />
 
-        {this.props.item.overlay}
+        {overlay}
       </View>
     );
   }
 }
 
-const styles = {
-  slideC: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  scrollViewC: {
+const styles = StyleSheet.create({
+  photoViewContainer: {
     alignItems: 'center',
     top: -32,
     justifyContent: 'center',
+    width,
+    height: height - 128,
   },
-  loader: {
-    position: 'absolute',
-    top: (Dimensions.get('window').height / 2) - 10,
-    left: (Dimensions.get('window').width / 2) - 10,
-  },
-};
+});

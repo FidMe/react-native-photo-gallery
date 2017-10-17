@@ -23,8 +23,8 @@ class GalleryList extends PureComponent {
     };
   }
 
-  handleShowImageFullscreen = ({ index }) => () =>
-    this.props.onPressImage(index);
+  handleShowImageFullscreen = ({ index }) => (event) =>
+    this.props.onPressImage(index, event);
 
   renderItem = (row) => {
     const { imageSize } = this.state;

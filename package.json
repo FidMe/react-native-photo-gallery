@@ -1,6 +1,6 @@
 {
   "name": "react-native-photo-gallery",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "description": "A simple gallery component",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,6 @@
   "license": "MIT",
   "dependencies": {
     "prop-types": "^15.5.10",
-    "react-native-photo-view": "1.2.0"
+    "react-native-photo-view": "1.5.2"
   }
 }

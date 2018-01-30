@@ -14,6 +14,10 @@ export default class Gallery extends Component {
     this.state = { index: 0 };
   }
 
+  componentDidMount() {
+    if (this.props.initialIndex) this.goTo(this.props.initialIndex);
+  }
+
   onScrollEnd(e) {
     const contentOffset = e.nativeEvent.contentOffset;
     const viewSize = e.nativeEvent.layoutMeasurement;

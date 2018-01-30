@@ -49,6 +49,7 @@ It is up to you to render a header, navigation bar, etc.
 | `data`            | Array of object | See `Data` below |
 | `initialPaginationSize`            | `Number` | Default to 10 |
 | `initialNumToRender`            | `Number` | Default to 4 |
+| `initialIndex`            | `Number` | Default to 0 |
 | `overlay`            | `Component` | If present, a view that will be displayed above the image |
 
 ## Data object

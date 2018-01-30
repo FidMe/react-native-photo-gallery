@@ -15,7 +15,11 @@ export default class Gallery extends Component {
   }
 
   componentDidMount() {
-    if (this.props.initialIndex) this.goTo(this.props.initialIndex);
+    if (this.props.initialIndex) {
+      setTimeout(() => {
+        this.goTo(this.props.initialIndex);
+      }, 100);
+    }
   }
 
   onScrollEnd(e) {

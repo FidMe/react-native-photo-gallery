@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Dimensions, View } from 'react-native';
+import { Platform, Image, ActivityIndicator, Dimensions, View, ScrollView } from 'react-native';
 import PhotoView from 'react-native-photo-view';
 
 const styles = {
@@ -10,7 +10,7 @@ const styles = {
   },
   scrollViewC: {
     alignItems: 'center',
-    top: -32,
+    top: Platform.OS === 'android' ? -32 : 70,
     justifyContent: 'center',
   },
   loader: {
@@ -35,17 +35,30 @@ export class Slide extends Component {
         ]}
       >
         <ActivityIndicator style={styles.loader} />
-        <PhotoView
-          source={this.props.item.image}
-          maximumZoomScale={3}
-          zoomScale={1}
-          androidScaleType="center"
-          resizeMode="contain"
-          style={[
-            styles.scrollViewC,
-            inside
-          ]}
-        />
+        {Platform.OS === 'android' ?
+          <PhotoView
+            source={this.props.item.image}
+            maximumZoomScale={3}
+            zoomScale={1}
+            androidScaleType="center"
+            resizeMode="contain"
+            style={[
+              styles.scrollViewC,
+              inside
+            ]}
+          /> :
+          <ScrollView
+            maximumZoomScale={3}
+            zoomScale={1}
+            style={[{ flex: 1 }, inside]}
+            contentContainerStyle={[
+              styles.scrollViewC,
+              inside
+            ]}
+          >
+            <Image source={this.props.item.image} style={inside} resizeMode="contain" />
+          </ScrollView>
+        }
         {this.props.item.overlay}
       </View>
     );

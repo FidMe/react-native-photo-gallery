@@ -6,7 +6,9 @@ import { Pagination, Slide } from "./src";
 export default class Gallery extends Component {
   constructor(props) {
     super(props);
-    this.state = { index: 0 };
+    this.state = {
+      index: 0
+    };
   }
   componentDidMount() {
     if (this.props.initialIndex) {
@@ -33,12 +35,12 @@ export default class Gallery extends Component {
   }
 
   goTo = index => {
+    this.props.setCurrentImage(this.props.data[index]);
     this.setState({ index });
     this.swiper.scrollToIndex({ index: Number(index) });
   };
 
   _renderImage = image => {
-    this.props.setCurrentImage(image);
     return <Slide {...image} />;
   };
 

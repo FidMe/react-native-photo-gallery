@@ -38,7 +38,7 @@ export default class Gallery extends Component {
   };
 
   _renderImage = image => {
-    this.props.setCurrentImage(image);
+    console.log(image);
     return <Slide {...image} />;
   };
 

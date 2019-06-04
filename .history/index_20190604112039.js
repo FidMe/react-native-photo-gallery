@@ -37,11 +37,6 @@ export default class Gallery extends Component {
     this.swiper.scrollToIndex({ index: Number(index) });
   };
 
-  _renderImage = image => {
-    this.props.setCurrentImage(image);
-    return <Slide {...image} />;
-  };
-
   render() {
     const backgroundColor = this.props.backgroundColor || "#000";
     const data = this.props.data || [];

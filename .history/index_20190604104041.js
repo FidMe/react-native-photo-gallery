@@ -37,11 +37,6 @@ export default class Gallery extends Component {
     this.swiper.scrollToIndex({ index: Number(index) });
   };
 
-  _renderImage = image => {
-    this.props.setCurrentImage(image);
-    return <Slide {...image} />;
-  };
-
   render() {
     const backgroundColor = this.props.backgroundColor || "#000";
     const data = this.props.data || [];
@@ -60,14 +55,14 @@ export default class Gallery extends Component {
           pagingEnabled
           onMomentumScrollEnd={this.onScrollEnd.bind(this)}
           getItemLayout={this.getItemLayout.bind(this)}
-          renderItem={img => this._renderImage(img)}
+          renderItem={img => <Slide {...img} />}
           keyExtractor={item => item.id}
         />
         <Pagination
           index={this.state.index}
           data={data}
           initialPaginationSize={this.props.initialPaginationSize || 10}
-          goTo={this.goTo}
+          goTo={this.goTo()}
           backgroundColor={backgroundColor}
         />
       </View>
@@ -84,7 +79,7 @@ Gallery.propTypes = {
       );
     }
   }),
-  setCurrentImage: PropTypes.function
+  setCurrentImage: PropTypes.function()
 };
 
 const styles = {

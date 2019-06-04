@@ -8,6 +8,7 @@ export default class Gallery extends Component {
     super(props);
     this.state = { index: 0 };
   }
+
   componentDidMount() {
     if (this.props.initialIndex) {
       setTimeout(() => {
@@ -15,6 +16,7 @@ export default class Gallery extends Component {
       }, 100);
     }
   }
+
   onScrollEnd(e) {
     const contentOffset = e.nativeEvent.contentOffset;
     const viewSize = e.nativeEvent.layoutMeasurement;
@@ -32,15 +34,10 @@ export default class Gallery extends Component {
     };
   }
 
-  goTo = index => {
+  goTo(index) {
     this.setState({ index });
     this.swiper.scrollToIndex({ index: Number(index) });
-  };
-
-  _renderImage = image => {
-    this.props.setCurrentImage(image);
-    return <Slide {...image} />;
-  };
+  }
 
   render() {
     const backgroundColor = this.props.backgroundColor || "#000";
@@ -51,6 +48,7 @@ export default class Gallery extends Component {
         style={{ ...styles.container, backgroundColor }}
       >
         {!data.length && <ActivityIndicator style={styles.loader} />}
+
         <FlatList
           style={styles.swiper}
           data={data}
@@ -60,14 +58,14 @@ export default class Gallery extends Component {
           pagingEnabled
           onMomentumScrollEnd={this.onScrollEnd.bind(this)}
           getItemLayout={this.getItemLayout.bind(this)}
-          renderItem={img => this._renderImage(img)}
+          renderItem={img => <Slide {...img} />}
           keyExtractor={item => item.id}
         />
         <Pagination
           index={this.state.index}
           data={data}
           initialPaginationSize={this.props.initialPaginationSize || 10}
-          goTo={this.goTo}
+          goTo={this.goTo.bind(this)}
           backgroundColor={backgroundColor}
         />
       </View>
@@ -83,8 +81,7 @@ Gallery.propTypes = {
         'Data prop is invalid. It must be an object containing "id" and "image" keys.'
       );
     }
-  }),
-  setCurrentImage: PropTypes.function
+  })
 };
 
 const styles = {

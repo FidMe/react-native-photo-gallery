@@ -6,6 +6,7 @@ import { Pagination, Slide } from "./src";
 export default class Gallery extends Component {
   constructor(props) {
     super(props);
+    this.props.setCurrentImage(this.props.data[0]);
     this.state = {
       index: 0
     };

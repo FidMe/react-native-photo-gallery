@@ -2,6 +2,7 @@
 # OSX
 #
 .DS_Store
+.history
 
 # node.js
 #

@@ -19,7 +19,13 @@ const styles = {
 
 const Metadata = ({ fileName, uploadedBy, createdAt }) => {
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      accessible={true}
+      accessibilityLabel={fileName}
+      accessibilityHint="single image for item"
+      testID={fileName}
+    >
       <Text style={[styles.imgText, { fontWeight: "bold" }]}>{fileName}</Text>
       {createdAt != undefined && (
         <Text style={styles.imgText}>Uploaded at: {createdAt}</Text>

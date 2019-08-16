@@ -52,6 +52,7 @@ export class Slide extends Component {
           }
         ]}
       >
+        <Timestamp createdAt="9/10/11" style={styles.timestamp} />
         <ActivityIndicator style={styles.loader} />
         {Platform.OS === "android" ? (
           <PhotoView
@@ -69,10 +70,7 @@ export class Slide extends Component {
             style={[{ flex: 1 }, inside]}
             contentContainerStyle={[styles.scrollViewC, inside]}
           >
-            <View>
-              <Timestamp createdAt="9/10/11" style={styles.timestamp} />
-              <Image source={image} style={styles.image} resizeMode="contain" />
-            </View>
+            <Image source={image} style={styles.image} resizeMode="contain" />
           </ScrollView>
         )}
         {overlay}

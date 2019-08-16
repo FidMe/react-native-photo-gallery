@@ -12,7 +12,6 @@ const styles = {
     padding: 20,
     zIndex: 1
   },
-
   imgText: {
     color: "white"
   }

@@ -21,8 +21,12 @@ const Metadata = ({ fileName, uploadedBy, createdAt }) => {
   return (
     <View style={styles.container}>
       <Text style={[styles.imgText, { fontWeight: "bold" }]}>{fileName}</Text>
-      <Text style={styles.imgText}>Uploaded at: {createdAt}</Text>
-      <Text style={styles.imgText}>Uploaded by: {uploadedBy}</Text>
+      {createdAt != undefined && (
+        <Text style={styles.imgText}>Uploaded at: {createdAt}</Text>
+      )}
+      {uploadedBy != undefined && (
+        <Text style={styles.imgText}>Uploaded by: {uploadedBy}</Text>
+      )}
     </View>
   );
 };

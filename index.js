@@ -41,8 +41,21 @@ export default class Gallery extends Component {
     this.swiper.scrollToIndex({ index: Number(index) });
   };
 
-  _renderImage = image => {
-    return <Slide {...image} />;
+  _renderImage = item => {
+    const {
+      index,
+      item: { id, image, uploadedBy, createdAt, fileName }
+    } = item;
+    return (
+      <Slide
+        fileName={fileName}
+        image={image}
+        id={id}
+        index={index}
+        uploadedBy={uploadedBy}
+        createdAt={createdAt}
+      />
+    );
   };
 
   render() {

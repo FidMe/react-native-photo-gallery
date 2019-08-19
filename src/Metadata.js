@@ -1,5 +1,5 @@
-import React, { Component, Platform } from "react";
-import { Dimensions, Text, View } from "react-native";
+import React, { Component } from "react";
+import { Dimensions, Platform, Text, View } from "react-native";
 
 const styles = {
   container: {

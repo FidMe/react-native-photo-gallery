@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Platform } from "react";
 import { Dimensions, Text, View } from "react-native";
 
 const styles = {

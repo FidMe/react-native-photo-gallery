@@ -7,10 +7,13 @@ export default class Gallery extends Component {
   constructor(props) {
     super(props);
     this.props.setCurrentImage(this.props.data[0]);
+    const { width, height } = Dimensions.get("window");
+    const orientation = width > height ? "landscape" : "portrait";
     this.state = {
       index: 0,
-      width: Dimensions.get("window").width,
-      height: Dimensions.get("window").height
+      width,
+      height,
+      orientation
     };
     if (this.props.initialIndex) {
       setTimeout(() => {
@@ -29,6 +32,13 @@ export default class Gallery extends Component {
       width,
       height
     });
+    width > height
+      ? this.setState({
+          orientation: "landscape"
+        })
+      : this.setState({
+          orientation: "portrait"
+        });
   };
 
   componentWillUnmount() {
@@ -78,15 +88,17 @@ export default class Gallery extends Component {
   };
 
   render() {
-    const { width, height } = this.state;
+    const { width, height, orientation } = this.state;
     const backgroundColor = this.props.backgroundColor || "#000";
     const data = this.props.data || [];
+    const containerHeight =
+      orientation === "portrait" ? height - 115 : height - 30;
     return (
       <View
         orientation={this.state.orientation}
         style={{
           width,
-          height: height - 128,
+          height: containerHeight,
           backgroundColor
         }}
       >

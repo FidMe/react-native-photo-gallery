@@ -76,6 +76,11 @@ class Slide extends Component {
         ]}
       >
         <ActivityIndicator style={styles.loader} />
+        <Metadata
+          createdAt={createdAt}
+          uploadedBy={uploadedBy}
+          fileName={fileName}
+        />
         {Platform.OS === "android" ? (
           <PhotoView
             source={image}
@@ -92,11 +97,6 @@ class Slide extends Component {
             style={inside}
             contentContainerStyle={[styles.scrollViewC, inside]}
           >
-            <Metadata
-              createdAt={createdAt}
-              uploadedBy={uploadedBy}
-              fileName={fileName}
-            />
             <Image
               source={image}
               style={inside}

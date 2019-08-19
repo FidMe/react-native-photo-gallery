@@ -5,7 +5,7 @@ const styles = {
   container: {
     backgroundColor: "black",
     position: "absolute",
-    top: 0,
+    top: Platform.OS === "android" ? -32 : 30,
     height: 100,
     opacity: 0.6,
     padding: 20,

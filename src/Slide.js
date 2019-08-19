@@ -12,7 +12,6 @@ import { Metadata } from "./Metadata";
 
 const styles = {
   slideC: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -33,48 +32,85 @@ const styles = {
   }
 };
 
-const Slide = ({ image, createdAt, uploadedBy, fileName }) => {
-  const inside = {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height - 128
+class Slide extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      width: Dimensions.get("window").width,
+      height: Dimensions.get("window").height
+    };
+    this.rotationEventListener = Dimensions.addEventListener(
+      "change",
+      this.onLayout
+    );
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener("change");
+  }
+
+  onLayout = e => {
+    const { height, width } = Dimensions.get("window");
+    this.setState({
+      width,
+      height
+    });
   };
-  return (
-    <View
-      style={[
-        styles.slideC,
-        {
-          width: Dimensions.get("window").width,
-          height: Dimensions.get("window").height
-        }
-      ]}
-    >
-      <ActivityIndicator style={styles.loader} />
-      {Platform.OS === "android" ? (
-        <PhotoView
-          source={image}
-          maximumZoomScale={3}
-          zoomScale={1}
-          androidScaleType="center"
-          resizeMode="contain"
-          style={[styles.scrollViewC, inside]}
-        />
-      ) : (
-        <ScrollView
-          maximumZoomScale={3}
-          zoomScale={1}
-          style={[{ flex: 1 }, inside]}
-          contentContainerStyle={[styles.scrollViewC, inside]}
-        >
-          <Metadata
-            createdAt={createdAt}
-            uploadedBy={uploadedBy}
-            fileName={fileName}
+
+  render() {
+    const { image, createdAt, uploadedBy, fileName } = this.props;
+    const { width, height } = this.state;
+    const inside = {
+      width,
+      height: height - 128
+    };
+
+    return (
+      <View
+        style={[
+          styles.slideC,
+          {
+            width,
+            height
+          }
+        ]}
+      >
+        <ActivityIndicator style={styles.loader} />
+        {Platform.OS === "android" ? (
+          <PhotoView
+            source={image}
+            maximumZoomScale={3}
+            zoomScale={1}
+            androidScaleType="center"
+            resizeMode="contain"
+            style={[styles.scrollViewC, inside]}
           />
-          <Image source={image} style={styles.image} resizeMode="contain" />
-        </ScrollView>
-      )}
-    </View>
-  );
-};
+        ) : (
+          <ScrollView
+            maximumZoomScale={3}
+            zoomScale={1}
+            style={inside}
+            contentContainerStyle={[styles.scrollViewC, inside]}
+          >
+            <Metadata
+              createdAt={createdAt}
+              uploadedBy={uploadedBy}
+              fileName={fileName}
+            />
+            <Image
+              source={image}
+              style={inside}
+              accessible={true}
+              accessibilityLabel={`img-${fileName}`}
+              accessibilityHint="single item image"
+              testID={`img-${fileName}`}
+              resizeMode="contain"
+            />
+          </ScrollView>
+        )}
+      </View>
+    );
+  }
+}
 
 export { Slide };

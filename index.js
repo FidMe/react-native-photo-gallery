@@ -8,37 +8,56 @@ export default class Gallery extends Component {
     super(props);
     this.props.setCurrentImage(this.props.data[0]);
     this.state = {
-      index: 0
+      index: 0,
+      width: Dimensions.get("window").width,
+      height: Dimensions.get("window").height
     };
-  }
-  componentDidMount() {
     if (this.props.initialIndex) {
       setTimeout(() => {
         this.goTo(this.props.initialIndex);
       }, 100);
     }
+    this.rotationEventListener = Dimensions.addEventListener(
+      "change",
+      this.onLayout
+    );
   }
-  onScrollEnd(e) {
+
+  onLayout = e => {
+    const { height, width } = Dimensions.get("window");
+    this.setState({
+      width,
+      height
+    });
+  };
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener("change");
+  }
+
+  onScrollEnd = e => {
     const contentOffset = e.nativeEvent.contentOffset;
     const viewSize = e.nativeEvent.layoutMeasurement;
     const pageNum = Math.floor(contentOffset.x / viewSize.width);
     if (pageNum !== this.state.index) {
       this.setState({ index: pageNum });
     }
-  }
+  };
 
-  getItemLayout(data, index) {
+  getItemLayout = (data, index) => {
     return {
       length: Dimensions.get("window").width,
       offset: Dimensions.get("window").width * index,
       index
     };
-  }
+  };
 
   goTo = index => {
     this.props.setCurrentImage(this.props.data[index]);
     this.setState({ index });
-    this.swiper.scrollToIndex({ index: Number(index) });
+    this.swiper.scrollToIndex({
+      index: Number(index)
+    });
   };
 
   _renderImage = item => {
@@ -59,12 +78,17 @@ export default class Gallery extends Component {
   };
 
   render() {
+    const { width, height } = this.state;
     const backgroundColor = this.props.backgroundColor || "#000";
     const data = this.props.data || [];
     return (
       <View
         orientation={this.state.orientation}
-        style={{ ...styles.container, backgroundColor }}
+        style={{
+          width,
+          height: height - 128,
+          backgroundColor
+        }}
       >
         {!data.length && <ActivityIndicator style={styles.loader} />}
         <FlatList
@@ -74,8 +98,8 @@ export default class Gallery extends Component {
           initialNumToRender={this.props.initialNumToRender || 4}
           ref={ref => (this.swiper = ref)}
           pagingEnabled
-          onMomentumScrollEnd={this.onScrollEnd.bind(this)}
-          getItemLayout={this.getItemLayout.bind(this)}
+          onMomentumScrollEnd={this.onScrollEnd}
+          getItemLayout={this.getItemLayout}
           renderItem={img => this._renderImage(img)}
           keyExtractor={item => item.id}
         />
@@ -104,9 +128,9 @@ Gallery.propTypes = {
 };
 
 const styles = {
-  container: {
-    flex: 1
-  },
+  // container: {
+  //   flex: 1
+  // },
   loader: {
     position: "absolute",
     top: Dimensions.get("window").height / 2 - 10,

@@ -8,15 +8,6 @@ export class Pagination extends Component {
   constructor(props) {
     super(props);
     this.setContentInset();
-    this.rotationEventListener = Dimensions.addEventListener(
-      "change",
-      this.onLayout
-    );
-    const { width, height } = Dimensions.get("window");
-    const orientation = width > height ? "landscape" : "portrait";
-    this.state = {
-      orientation
-    };
   }
 
   componentDidUpdate() {
@@ -25,17 +16,6 @@ export class Pagination extends Component {
     });
     this.setContentInset();
   }
-
-  componentWillUnmount() {
-    Dimensions.removeEventListener("change");
-  }
-
-  onLayout = e => {
-    const { height, width } = Dimensions.get("window");
-    this.setState({
-      orientation: width > height ? "landscape" : "portrait"
-    });
-  };
 
   setContentInset() {
     this.contentInset = Dimensions.get("window").width / 2 - 32;
@@ -57,12 +37,6 @@ export class Pagination extends Component {
   }
 
   render() {
-    let bottomHeight;
-    if (this.state.orientation === "landscape") {
-      bottomHeight = Platform.isPad ? 83 : 53;
-    } else {
-      bottomHeight = Platform.isPad ? 0 : 53;
-    }
     return (
       <BetterList
         horizontal
@@ -78,14 +52,11 @@ export class Pagination extends Component {
             index={index}
           />
         )}
-        style={[
-          s.container,
-          {
-            bottom: bottomHeight,
-            backgroundColor: this.props.backgroundColor,
-            width: Dimensions.get("window").width
-          }
-        ]}
+        style={{
+          ...s.container,
+          backgroundColor: this.props.backgroundColor,
+          width: Dimensions.get("window").width
+        }}
         overScrollMode="never"
         alwaysBounceHorizontal={false}
         {...this.insetOffSetParams}
@@ -97,7 +68,8 @@ export class Pagination extends Component {
 const s = {
   container: {
     position: "absolute",
-    height: 70,
+    bottom: 0,
+    height: 64,
     opacity: 0.8,
     zIndex: 1
   },

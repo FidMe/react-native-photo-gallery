@@ -6,44 +6,37 @@ import { Pagination, Slide } from "./src";
 export default class Gallery extends Component {
   constructor(props) {
     super(props);
-    this.props.setCurrentImage(this.props.data[0]);
     const { width, height } = Dimensions.get("window");
-    const orientation = width > height ? "landscape" : "portrait";
+    this.props.setCurrentImage(this.props.data[0]);
     this.state = {
       index: 0,
       width,
-      height,
-      orientation
+      height
     };
+    this.rotationEventListener = Dimensions.addEventListener(
+      "change",
+      this.onLayout
+    );
     if (this.props.initialIndex) {
       setTimeout(() => {
         this.goTo(this.props.initialIndex);
       }, 100);
     }
-    this.rotationEventListener = Dimensions.addEventListener(
-      "change",
-      this.onLayout
-    );
   }
-
-  onLayout = e => {
-    const { height, width } = Dimensions.get("window");
-    this.setState({
-      width,
-      height
-    });
-    width > height
-      ? this.setState({
-          orientation: "landscape"
-        })
-      : this.setState({
-          orientation: "portrait"
-        });
-  };
 
   componentWillUnmount() {
     Dimensions.removeEventListener("change");
   }
+
+  onLayout = e => {
+    const { height, width } =
+      e.window !== undefined ? e.window : Dimensions.get("window");
+    this.setState({
+      ...this.state,
+      width,
+      height
+    });
+  };
 
   onScrollEnd = e => {
     const contentOffset = e.nativeEvent.contentOffset;
@@ -55,9 +48,10 @@ export default class Gallery extends Component {
   };
 
   getItemLayout = (data, index) => {
+    const { width } = this.state;
     return {
-      length: Dimensions.get("window").width,
-      offset: Dimensions.get("window").width * index,
+      length: width,
+      offset: width * index,
       index
     };
   };
@@ -75,8 +69,12 @@ export default class Gallery extends Component {
       index,
       item: { id, image, uploadedBy, createdAt, fileName }
     } = item;
+    const { height, width } = this.state;
     return (
       <Slide
+        style={{ alignSelf: "stretch", width, height }}
+        width={width}
+        height={height}
         fileName={fileName}
         image={image}
         id={id}
@@ -88,24 +86,22 @@ export default class Gallery extends Component {
   };
 
   render() {
-    const { width, height, orientation } = this.state;
     const backgroundColor = this.props.backgroundColor || "#000";
     const data = this.props.data || [];
-    const containerHeight =
-      orientation === "portrait" ? height - 115 : height - 30;
     return (
       <View
-        orientation={this.state.orientation}
+        onLayout={this.onLayout}
         style={{
-          width,
-          height: containerHeight,
+          ...styles.container,
           backgroundColor
         }}
       >
         {!data.length && <ActivityIndicator style={styles.loader} />}
         <FlatList
-          style={styles.swiper}
+          onLayout={this.onLayout}
+          style={styles.flatList}
           data={data}
+          extraData={this.state}
           horizontal
           initialNumToRender={this.props.initialNumToRender || 4}
           ref={ref => (this.swiper = ref)}
@@ -140,15 +136,18 @@ Gallery.propTypes = {
 };
 
 const styles = {
-  // container: {
-  //   flex: 1
-  // },
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  flatList: {
+    flex: 1,
+    alignSelf: "stretch"
+  },
   loader: {
     position: "absolute",
     top: Dimensions.get("window").height / 2 - 10,
     left: Dimensions.get("window").width / 2 - 10
-  },
-  swiper: {
-    top: -32
   }
 };

@@ -88,6 +88,7 @@ export default class Gallery extends Component {
   render() {
     const backgroundColor = this.props.backgroundColor || "#000";
     const data = this.props.data || [];
+    const { width, height } = this.state;
     return (
       <View
         onLayout={this.onLayout}
@@ -111,13 +112,15 @@ export default class Gallery extends Component {
           renderItem={img => this._renderImage(img)}
           keyExtractor={item => item.id}
         />
-        <Pagination
-          index={this.state.index}
-          data={data}
-          initialPaginationSize={this.props.initialPaginationSize || 10}
-          goTo={this.goTo}
-          backgroundColor={backgroundColor}
-        />
+        {width < height && (
+          <Pagination
+            index={this.state.index}
+            data={data}
+            initialPaginationSize={this.props.initialPaginationSize || 10}
+            goTo={this.goTo}
+            backgroundColor={backgroundColor}
+          />
+        )}
       </View>
     );
   }

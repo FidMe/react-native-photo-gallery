@@ -62,6 +62,7 @@ const styles = {
   },
   scrollViewContainer: {
     flex: 1,
+    marginBottom: 150,
     alignItems: "center",
     justifyContent: "center"
   }

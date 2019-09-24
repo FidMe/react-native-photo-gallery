@@ -15,14 +15,14 @@
     "zoom",
     "pagination"
   ],
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/Snapp-FidMe/react-native-photo-gallery"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hariDasu/react-native-photo-gallery.git"
   },
-  "author": "Michaël Villeneuve",
+  "author": "Srihari Rao",
   "license": "MIT",
   "dependencies": {
-    "prop-types": "^15.5.10",
+    "prop-types": "^15.6.0",
     "react-native-photo-view": "1.5.2"
   }
 }

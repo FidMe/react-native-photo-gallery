@@ -1,25 +1,35 @@
-import React, { Component } from "react";
-import { Dimensions, Platform, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import PropTypes from "prop-types";
 
-const Metadata = ({ fileName, createdAt, uploadedBy }) => (
-  <View
-    style={styles.container}
-    accessible
-    accessibilityLabel={fileName}
-    accessibilityHint="single image for item"
-    testID={fileName}
-  >
-    <Text style={[styles.imgText, { fontWeight: "bold" }]}>{fileName}</Text>
-    {createdAt != undefined && (
-      <Text style={styles.imgText}>Uploaded at: {createdAt}</Text>
-    )}
-    {uploadedBy != " " && (
-      <Text style={styles.imgText}>Uploaded by: {uploadedBy}</Text>
-    )}
-  </View>
-);
+const Metadata = props => {
+  const { fileName, createdAt, uploadedBy } = props;
+  return (
+    <View
+      style={styles.container}
+      accessible
+      accessibilityLabel={fileName}
+      accessibilityHint="single image for item"
+      testID={fileName}
+    >
+      <Text style={[styles.imgText, { fontWeight: "bold" }]}>{fileName}</Text>
+      {createdAt != undefined && (
+        <Text style={styles.imgText}>Uploaded at: {createdAt}</Text>
+      )}
+      {uploadedBy != " " && (
+        <Text style={styles.imgText}>Uploaded by: {uploadedBy}</Text>
+      )}
+    </View>
+  );
+};
 
-const styles = {
+Metadata.propTypes = {
+  fileName: PropTypes.string,
+  createdAt: PropTypes.string,
+  uploadedBy: PropTypes.string
+};
+
+const styles = StyleSheet.create({
   container: {
     backgroundColor: "black",
     alignSelf: "stretch",
@@ -31,6 +41,6 @@ const styles = {
   imgText: {
     color: "white"
   }
-};
+});
 
 export { Metadata };

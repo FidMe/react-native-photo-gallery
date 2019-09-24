@@ -1,9 +1,11 @@
 import React from "react";
 import { Platform, Image, View, ScrollView } from "react-native";
 import PhotoView from "react-native-photo-view";
+import PropTypes from "prop-types";
 import { Metadata } from "./Metadata";
 
-const Slide = ({ image, createdAt, uploadedBy, fileName, width, height }) => {
+const Slide = props => {
+  const { image, createdAt, uploadedBy, fileName, width, height } = props;
   return (
     <View style={{ ...styles.container, width, height }}>
       {width < height && (
@@ -51,6 +53,15 @@ const Slide = ({ image, createdAt, uploadedBy, fileName, width, height }) => {
       )}
     </View>
   );
+};
+
+Slide.propTypes = {
+  image: PropTypes.object.isRequired,
+  createdAt: PropTypes.string,
+  uploadedBy: PropTypes.string,
+  fileName: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number
 };
 
 const styles = {

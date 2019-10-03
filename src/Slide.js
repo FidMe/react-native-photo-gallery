@@ -1,6 +1,5 @@
 import React from "react";
 import { Platform, Image, View, ScrollView } from "react-native";
-import PhotoView from "react-native-photo-view";
 import PropTypes from "prop-types";
 import { Metadata } from "./Metadata";
 
@@ -15,21 +14,6 @@ const Slide = props => {
           fileName={fileName}
         />
       )}
-      {Platform.OS === "android" ? (
-        <View style={styles.scrollViewContainer}>
-          <PhotoView
-            source={image}
-            maximumZoomScale={4}
-            zoomScale={1}
-            androidScaleType="center"
-            resizeMode="contain"
-            style={{ width, height: height - 128 }}
-            accessibilityLabel={`img-${fileName}`}
-            accessibilityHint="single item image"
-            testID={`img-${fileName}`}
-          />
-        </View>
-      ) : (
         <ScrollView
           maximumZoomScale={4}
           zoomScale={1}
@@ -50,7 +34,6 @@ const Slide = props => {
             resizeMode="center"
           />
         </ScrollView>
-      )}
     </View>
   );
 };

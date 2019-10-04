@@ -17,15 +17,6 @@ export default class Gallery extends Component {
     }
   }
 
-  onLayout = e => {
-    const { height, width } =
-      e.window !== undefined ? e.window : Dimensions.get("window");
-    this.setState({
-      ...this.state,
-      width,
-      height
-    });
-  };
 
   onScrollEnd = e => {
     const contentOffset = e.nativeEvent.contentOffset;

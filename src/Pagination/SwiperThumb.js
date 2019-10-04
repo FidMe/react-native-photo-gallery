@@ -2,16 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { TouchableOpacity, Image, StyleSheet } from "react-native";
 
-const SwiperThumb = props => {
-  const { navigate, index, active, data } = props;
+const SwiperThumb = ({ navigate, index, data, active }) => {
   goToSlide = () => {
     navigate(index);
   };
 
   return (
-    <TouchableOpacity style={s.container} onPress={goToSlide}>
+    <TouchableOpacity style={styles.container} onPress={goToSlide}>
       <Image
-        style={{ ...s.thumb, opacity: active ? 1 : 0.6 }}
+        style={{ ...styles.thumb, opacity: active ? 1 : 0.6 }}
         source={data[index].thumb || data[index].image}
       />
     </TouchableOpacity>
@@ -25,7 +24,7 @@ SwiperThumb.propTypes = {
   data: PropTypes.object
 };
 
-const s = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     width: 64,
     justifyContent: "center",

@@ -6,37 +6,14 @@ import { Pagination, Slide } from "./src";
 export default class Gallery extends Component {
   constructor(props) {
     super(props);
-    const { width, height } = Dimensions.get("window");
     this.props.setCurrentImage(this.props.data[0]);
-    this.state = {
-      index: 0,
-      width,
-      height
-    };
-    this.rotationEventListener = Dimensions.addEventListener(
-      "change",
-      this.onLayout
-    );
+    this.state = { index: 0 };
     if (this.props.initialIndex) {
       setTimeout(() => {
         this.goTo(this.props.initialIndex);
       }, 100);
     }
   }
-
-  componentWillUnmount() {
-    Dimensions.removeEventListener("change");
-  }
-
-  onLayout = e => {
-    const { height, width } =
-      e.window !== undefined ? e.window : Dimensions.get("window");
-    this.setState({
-      ...this.state,
-      width,
-      height
-    });
-  };
 
   onScrollEnd = e => {
     const contentOffset = e.nativeEvent.contentOffset;
@@ -64,31 +41,11 @@ export default class Gallery extends Component {
     });
   };
 
-  _renderImage = item => {
-    const {
-      index,
-      item: { id, image, uploadedBy, createdAt, fileName }
-    } = item;
-    const { height, width } = this.state;
-    return (
-      <Slide
-        style={{ alignSelf: "stretch", width, height }}
-        width={width}
-        height={height}
-        fileName={fileName}
-        image={image}
-        id={id}
-        index={index}
-        uploadedBy={uploadedBy}
-        createdAt={createdAt}
-      />
-    );
-  };
+  _renderImage = item => <Slide {...item} />;
 
   render() {
     const backgroundColor = this.props.backgroundColor || "#000";
     const data = this.props.data || [];
-    const { width, height } = this.state;
     return (
       <View
         onLayout={this.onLayout}
@@ -112,15 +69,13 @@ export default class Gallery extends Component {
           renderItem={img => this._renderImage(img)}
           keyExtractor={item => item.id}
         />
-        {width < height && (
-          <Pagination
-            index={this.state.index}
-            data={data}
-            initialPaginationSize={this.props.initialPaginationSize || 10}
-            goTo={this.goTo}
-            backgroundColor={backgroundColor}
-          />
-        )}
+        <Pagination
+          index={this.state.index}
+          data={data}
+          initialPaginationSize={this.props.initialPaginationSize || 10}
+          goTo={this.goTo}
+          backgroundColor={backgroundColor}
+        />
       </View>
     );
   }

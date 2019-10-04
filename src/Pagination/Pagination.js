@@ -63,7 +63,13 @@ export class Pagination extends Component {
           offset: 64 * index,
           index
         })}
-        style={{ ...s.container, backgroundColor: this.props.backgroundColor }}
+        style={[
+          s.container,
+          {
+            backgroundColor: this.props.backgroundColor,
+            width: Dimensions.get("window").width
+          }
+        ]}
         overScrollMode="never"
         alwaysBounceHorizontal={false}
         {...this.insetOffSetParams}
@@ -78,8 +84,7 @@ const s = StyleSheet.create({
     bottom: 0,
     height: 64,
     opacity: 0.8,
-    zIndex: 1,
-    width: Dimensions.get("window").width
+    zIndex: 1
   },
   subContainer: {
     flexDirection: "row",

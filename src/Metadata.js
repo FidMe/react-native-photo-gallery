@@ -2,8 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 
-const Metadata = props => {
-  const { fileName, createdAt, uploadedBy } = props;
+const Metadata = ({ fileName, createdAt, uploadedBy }) => {
   return (
     <View
       style={styles.container}

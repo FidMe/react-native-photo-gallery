@@ -1,6 +1,5 @@
 import { Dimensions, Platform, FlatList, StyleSheet } from "react-native";
 import React, { Component } from "react";
-
 import SwiperThumb from "./SwiperThumb";
 
 export class Pagination extends Component {
@@ -37,16 +36,18 @@ export class Pagination extends Component {
     this.props.goTo(index);
   };
 
-  renderItem = ({ item, index }) => (
-    <SwiperThumb
-      {...item}
-      key={item.id}
-      data={this.props.data}
-      active={index == this.props.index}
-      navigate={() => this.navigate(index)}
-      index={index}
-    />
-  );
+  renderItem = ({ item, index }) => {
+    return (
+      <SwiperThumb
+        {...item}
+        key={item.id}
+        data={this.props.data}
+        active={index == this.props.index}
+        navigate={() => this.navigate(index)}
+        index={index}
+      />
+    );
+  };
 
   render() {
     return (

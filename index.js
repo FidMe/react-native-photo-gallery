@@ -25,10 +25,9 @@ export default class Gallery extends Component {
   };
 
   getItemLayout = (data, index) => {
-    const { width } = this.state;
     return {
-      length: width,
-      offset: width * index,
+      length: Dimensions.get("window").width,
+      offset: Dimensions.get("window").width * index,
       index
     };
   };

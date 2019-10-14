@@ -4,11 +4,12 @@ import PropTypes from "prop-types";
 import { Metadata } from "./Metadata";
 
 const Slide = ({ item }) => {
+  const { image, uploadedBy, fileName, createdAt } = item;
   const inside = {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height - 128
   };
-  const { createdAt, uploadedBy, fileName } = item;
+
   return (
     <View
       style={[

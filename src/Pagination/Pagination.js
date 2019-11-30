@@ -11,7 +11,7 @@ export class Pagination extends Component {
   }
 
   componentDidUpdate() {
-    this.list.pagination.scrollTo({ x: ((this.props.index * 64) - this.contentInset) });
+    //this.list.pagination.scrollTo({ x: ((this.props.index * 64) - this.contentInset) });
     this.setContentInset();
   }
 

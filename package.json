@@ -17,7 +17,7 @@
   ],
   "repository" : {
     "type" : "git",
-    "url" : "https://github.com/Snapp-FidMe/react-native-photo-gallery"
+    "url" : "https://github.com/fidme/react-native-photo-gallery"
   },
   "author": "Michaël Villeneuve",
   "license": "MIT",

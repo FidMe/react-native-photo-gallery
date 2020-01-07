@@ -6,7 +6,7 @@ import { Pagination, Slide } from "./src";
 export default class Gallery extends Component {
   constructor(props) {
     super(props);
-    this.props.setCurrentImage(this.props.data[0]);
+    this.sendCurrentImageInfo(this.props.data[0]);
     this.state = {
       index: 0
     };
@@ -17,6 +17,9 @@ export default class Gallery extends Component {
     }
   }
 
+  sendCurrentImageInfo = image => {
+    if (this.props.setCurrentImage) this.props.setCurrentImage(image);
+  };
 
   onScrollEnd = e => {
     const contentOffset = e.nativeEvent.contentOffset;
@@ -37,7 +40,7 @@ export default class Gallery extends Component {
   };
 
   goTo = index => {
-    this.props.setCurrentImage(this.props.data[index]);
+    this.sendCurrentImageInfo(this.props.data[index]);
     this.setState({ index });
     this.swiper.scrollToIndex({
       index: Number(index)

@@ -1,57 +1,74 @@
-import { Dimensions, Platform } from 'react-native';
-import React, { Component } from 'react';
-
-import SwiperThumb from './SwiperThumb';
-import BetterList from '../BetterList';
+import { Dimensions, Platform, FlatList, StyleSheet } from "react-native";
+import React, { Component } from "react";
+import SwiperThumb from "./SwiperThumb";
 
 export class Pagination extends Component {
   constructor(props) {
     super(props);
-    this.setContentInset()
-  }
-
-  componentDidUpdate() {
-    this.list.pagination.scrollTo({ x: ((this.props.index * 64) - this.contentInset) });
     this.setContentInset();
   }
 
+  componentDidUpdate() {
+    this.scrollTo(this.props.index);
+    this.setContentInset();
+  }
+
+  scrollTo = index => {
+    this.list.scrollToIndex({ animated: true, index });
+  };
+
   setContentInset() {
-    this.contentInset = (Dimensions.get('window').width / 2) - 32;
+    this.contentInset = Dimensions.get("window").width / 2 - 32;
     this.insetOffSetParams = Platform.select({
       ios: {
-        contentInset: { left: this.contentInset, right: this.contentInset },
+        contentInset: {
+          left: this.contentInset,
+          right: this.contentInset
+        },
         contentOffset: { x: -this.contentInset },
-        contentContainerStyle: s.subContainer,
+        contentContainerStyle: s.subContainer
       },
       android: {}
     });
   }
 
-  navigate(index) {
+  navigate = index => {
     this.props.goTo(index);
-  }
+  };
+
+  renderItem = ({ item, index }) => {
+    return (
+      <SwiperThumb
+        {...item}
+        key={item.id}
+        data={this.props.data}
+        active={index == this.props.index}
+        navigate={() => this.navigate(index)}
+        index={index}
+      />
+    );
+  };
 
   render() {
     return (
-      <BetterList
+      <FlatList
         horizontal
-        ref={sc => this.list = sc}
+        ref={flatList => {
+          this.list = flatList;
+        }}
+        initialScrollIndex={0}
         data={this.props.data}
-        renderRow={(item, i, index) =>
-          <SwiperThumb
-            {...item}
-            key={index}
-            data={this.props.data}
-            active={index == this.props.index}
-            navigate={this.navigate.bind(this, index)}
-            index={index}
-          />
-        }
+        renderItem={this.renderItem}
+        getItemLayout={(data, index) => ({
+          length: 64,
+          offset: 64 * index,
+          index
+        })}
         style={[
           s.container,
           {
             backgroundColor: this.props.backgroundColor,
-            width: Dimensions.get('window').width,
+            width: Dimensions.get("window").width
           }
         ]}
         overScrollMode="never"
@@ -62,15 +79,15 @@ export class Pagination extends Component {
   }
 }
 
-const s = {
+const s = StyleSheet.create({
   container: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    height: 64,
+    height: 64
   },
   subContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
   }
-};
+});

@@ -42,8 +42,8 @@ export default class Gallery extends Component {
   goTo = index => {
     this.sendCurrentImageInfo(this.props.data[index]);
     this.setState({ index });
-    this.swiper.scrollToIndex({
-      index: Number(index)
+    this.swiper.scrollToOffset({
+      offset: Dimensions.get("window").width * index
     });
   };
 
@@ -110,6 +110,7 @@ const styles = {
   },
   flatList: {
     flex: 1,
+    width: Dimensions.get("window").width,
     alignSelf: "stretch"
   },
   loader: {

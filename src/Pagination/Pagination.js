@@ -14,6 +14,7 @@ export class Pagination extends Component {
   }
 
   scrollTo = index => {
+    if (index < 0) return;
     this.list.scrollToIndex({ animated: true, index });
   };
 

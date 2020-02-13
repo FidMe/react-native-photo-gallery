@@ -1,6 +1,6 @@
 {
   "name": "react-native-photo-gallery",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple gallery component",
   "main": "index.js",
   "scripts": {
@@ -15,9 +15,9 @@
     "zoom",
     "pagination"
   ],
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/fidme/react-native-photo-gallery"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fidme/react-native-photo-gallery"
   },
   "author": "Michaël Villeneuve",
   "license": "MIT",

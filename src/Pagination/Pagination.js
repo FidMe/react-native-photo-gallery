@@ -80,10 +80,18 @@ export class Pagination extends Component {
   }
 }
 
+const isIphoneXorAbove = () => {
+  const d = Dimensions.get("window");
+  return (
+    Platform.OS === "ios" &&
+    (d.height === 812 || d.width === 812 || d.height === 896 || d.width === 896)
+  );
+};
+
 const s = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 0,
+    bottom: isIphoneXorAbove() ? 30 : 0,
     height: 64
   },
   subContainer: {

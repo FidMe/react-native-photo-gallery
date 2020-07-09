@@ -32,7 +32,7 @@ const Slide = ({ item }) => {
           source={item.image}
           maximumZoomScale={3}
           zoomScale={1}
-          androidScaleType="center"
+          androidScaleType="centerInside"
           resizeMode="contain"
           style={[styles.scrollViewC, inside]}
         />
